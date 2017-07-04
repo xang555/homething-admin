@@ -27,7 +27,7 @@ class DevicePannel extends Component {
                 <Form horizontal>
                     <FormGroup controlId="formHorizontalDeviceId">
                         <Col componentClass={ControlLabel} sm={4}>
-                            Email
+                             SmartDevice ID
                         </Col>
                         <Col sm={5}>
                             <FormControl type="text" placeholder="DeviceId" />
@@ -36,7 +36,7 @@ class DevicePannel extends Component {
 
                     <FormGroup controlId="formHorizontalDeviceCode">
                         <Col componentClass={ControlLabel} sm={4}>
-                            Password
+                            Device Code
                         </Col>
                         <Col sm={5}>
                             <FormControl type="text" placeholder="Device Code" />
@@ -45,7 +45,7 @@ class DevicePannel extends Component {
 
                     <FormGroup>
                         <Col componentClass={ControlLabel} sm={4}>
-                            Select
+                            SmartDevice Type
                         </Col>
                         <Col sm={5}>
                             <FormControl componentClass="select" placeholder="select">
@@ -56,9 +56,9 @@ class DevicePannel extends Component {
                     </FormGroup>
 
                     <FormGroup>
-                        <Col smOffset={4} sm={5}>
-                            <Button type="submit">
-                                Sign in
+                        <Col smOffset={5} sm={3}>
+                            <Button bsSize="large" bsStyle="success" type="submit" block>
+                                Add Device
                             </Button>
                         </Col>
                     </FormGroup>
