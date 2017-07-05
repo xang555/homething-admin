@@ -13,22 +13,20 @@ constructor(props){
 render(){
 
 return (
-<div className="fillter-pannel">
-
-<Panel header="Search SmartDevice" bsStyle="default">
+<div>
 
 <Grid>
     <Row>
-        <Col xs={2} md={2}>
+       <div className="fillter-pannel">
+        <Col xs={3} md={3}>
         <Option/>
         </Col>
         <Col xs={5} md={6}>
         <Search/>
         </Col>
+       </div>
     </Row>
 </Grid>
-
-</Panel>
 
 </div>
 );

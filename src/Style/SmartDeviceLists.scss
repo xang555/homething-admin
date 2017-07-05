@@ -1,0 +1,21 @@
+
+@mixin margin-text($left,$rigth){
+    margin-left: $left;
+    margin-right: $rigth;
+}
+
+.title-top {
+    @include margin-text(35px,35px);
+}
+
+.title-bottom {
+     @include margin-text(15px,15px);
+}
+
+.card-item {
+    margin: 20px
+}
+
+.smartdevice-margin-left {
+    margin-left: -3%
+}

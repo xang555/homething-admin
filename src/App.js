@@ -3,7 +3,8 @@ import './Style/App.css';
 import { Col,Row, Grid} from 'react-bootstrap';
 import Navbar from './Component/Navbar';
 import DevicePannel from './Component/AddDevicePannel';
-import FilterSmartDevice from './Component/FilterSmartDevice';
+import SmartDevicePannel from './Component/SmartDevicesPannel';
+
 
 class App extends Component {
   render() {
@@ -12,15 +13,15 @@ class App extends Component {
           <Grid>
 
             <Row>
-              <Navbar/>
+              <Col xs={12} md={12}><Navbar/></Col>
             </Row>
 
             <Row>
-              <DevicePannel/>
+              <Col xs={12} md={12}><DevicePannel/></Col>
             </Row>
 
             <Row>
-              <FilterSmartDevice/>
+              <Col xs={12} md={12}><SmartDevicePannel/></Col>
             </Row>
 
           </Grid>
