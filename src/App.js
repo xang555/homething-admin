@@ -1,26 +1,29 @@
 import React, { Component } from 'react';
 import './Style/App.css';
-import { Link, BrowserRouter as Router, Route } from 'react-router-dom';
+import { Col,Row, Grid} from 'react-bootstrap';
 import Navbar from './Component/Navbar';
 import DevicePannel from './Component/AddDevicePannel';
-
+import FilterSmartDevice from './Component/FilterSmartDevice';
 
 class App extends Component {
   render() {
     return (
 
-        <Router>
+          <Grid>
 
-        <div>
-         <Navbar/> 
-         <DevicePannel/>
-         
+            <Row>
+              <Navbar/>
+            </Row>
 
-        </div>
+            <Row>
+              <DevicePannel/>
+            </Row>
 
+            <Row>
+              <FilterSmartDevice/>
+            </Row>
 
-
-        </Router>
+          </Grid>
         
     );
   }
