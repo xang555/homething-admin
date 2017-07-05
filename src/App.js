@@ -4,6 +4,7 @@ import { Link, BrowserRouter as Router, Route } from 'react-router-dom';
 import Navbar from './Component/Navbar';
 import DevicePannel from './Component/AddDevicePannel';
 
+
 class App extends Component {
   render() {
     return (
@@ -11,8 +12,9 @@ class App extends Component {
         <Router>
 
         <div>
-
-            <DevicePannel/>
+         <Navbar/> 
+         <DevicePannel/>
+         
 
         </div>
 
