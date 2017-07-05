@@ -32,7 +32,7 @@ class DevicePannel extends Component {
                 <Form horizontal>
                     <FormGroup controlId="formHorizontalDeviceId" bsSize="large">
                         <Col componentClass={ControlLabel} sm={3}>
-                             SmartDevice ID
+                              ID
                         </Col>
                         <Col sm={7}>
                             <FormControl type="text" placeholder="DeviceId" />
@@ -50,7 +50,7 @@ class DevicePannel extends Component {
 
                     <FormGroup bsSize="large">
                         <Col componentClass={ControlLabel} sm={3}>
-                            SmartDevice Type
+                             Type
                         </Col>
                         <Col sm={7}>
                             <FormControl componentClass="select" placeholder="SmartDevice Type">

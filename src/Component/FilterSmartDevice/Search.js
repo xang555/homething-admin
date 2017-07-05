@@ -17,7 +17,7 @@ constructor(props){
 render(){
 
 return (
-  <FormGroup>
+  <FormGroup bsSize="large">
       <InputGroup>
         <FormControl type="text" placeholder="Device ID" />
         <InputGroup.Addon>

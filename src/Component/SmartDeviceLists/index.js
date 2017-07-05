@@ -16,29 +16,29 @@ render(){
 let mydata = [
 
 {
-    sdid:"3432432432",
+    sdid:"1234567890123",
     sdname:"dcdscdscds"
 },
 
 {
-    sdid:"452875287587",
+    sdid:"1234567890576",
     sdname:"fgbsfsfdsf"
 },
 
 {
-    sdid:"42505252",
+    sdid:"1234567890098",
     sdname:"vcdscscds4353"
 },
 {
-    sdid:"41245425425",
+    sdid:"1234567890782",
     sdname:"435435vfdvfdvfd"
 },
 {
-    sdid:"542343354",
+    sdid:"1234567890291",
     sdname:"435435vfdvfdvfd"
 },
 {
-    sdid:"41245425425",
+    sdid:"1234567890238",
     sdname:"435435vfdvfdvfd"
 }
 
@@ -46,13 +46,9 @@ let mydata = [
 
 
 return (
-
 <div className="smartdevice-margin-left">
-
 <TodoLists devices={mydata}/>
-
-</div>
-
+</div>    
 );
 
 }

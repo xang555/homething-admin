@@ -14,7 +14,6 @@ render(){
 
 return (
 <div>
-
 <Grid>
     <Row>
        <div className="fillter-pannel">
@@ -25,7 +24,7 @@ return (
         <Search/>
         </Col>
        </div>
-    </Row>
+    </Row>   
 </Grid>
 
 </div>

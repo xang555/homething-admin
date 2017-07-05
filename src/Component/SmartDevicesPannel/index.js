@@ -15,13 +15,11 @@ return (
    <Grid>
 
         <Row>
-            <Col xs={12} md={12}><SmartDeviceFilter/></Col>
+           <SmartDeviceFilter/>
         </Row>
 
         <Row>
-
-            <Col xs={12} md={12}><SmartDeviceLists/></Col>
-
+         <SmartDeviceLists/>
         </Row>
 
     </Grid>

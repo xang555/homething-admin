@@ -16,7 +16,7 @@ render(){
 
 return(
 
-<FormGroup >
+<FormGroup bsSize="large">
 <FormControl componentClass="select" placeholder="SmartDevice Type">
 <option value="0">Smart Switch</option>
 <option value="1">humidity and temperature Sensor</option>
