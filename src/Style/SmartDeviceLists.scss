@@ -10,7 +10,7 @@
 }
 
 .title-bottom {
-     @include margin-text(9px,9px);
+     @include margin-text(01px,0px);
 }
 
 .card-item {
@@ -18,6 +18,7 @@
 }
 
 .smartdevice-margin-left {
-    margin-left: 5%;
-    margin-top: 3%
+   padding-left: 25%;
+    margin-top: 3%;
 }
+

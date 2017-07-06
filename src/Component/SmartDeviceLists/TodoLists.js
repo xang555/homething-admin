@@ -1,52 +1,20 @@
-import React, { Component } from 'react';
-import { Col,Row, Grid,Panel,Thumbnail,Image} from 'react-bootstrap';
+import React,{ Component } from 'react';
+import { Panel,Image} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import thumbnail from '../../Icon/thumbnail.png';
+import Masonry from 'react-masonry-component';
 
-
-class TodoLists extends Component {
+class TodoLists extends React.PureComponent {
 
 constructor(props){
     super(props);
 }
-
-
-GeneratItem = (itemperrow,startindex,destinetion) => {
-
-    let count = 0;
-    let curentindex = 0;
-    let coulume = [];
-    for(let i =startindex ; i < itemperrow.length;i++){
-
-        if(count != 3){        
-            coulume.push(itemperrow[i]);
-            if(i === itemperrow.length - 1){
-             destinetion.push(<Row key={i}> { coulume } </Row>);
-            }
-            count++;
-            curentindex = i + 1;
-            continue;
-        }
-        
-        destinetion.push(<Row key={i}>{ coulume } </Row>);
-        break;
-    }
-
-return curentindex;
-
-}
-
-
+ 
 itemRenders = () => {
-
 let items = [];
-
 for(let i =0 ; i < this.props.devices.length;i++){
- items.push(<SmartDeviceItem key={this.props.devices[i].sdid} deviceId={this.props.devices[i].sdid} deviceName={ this.props.devices[i].sdname } />);
+ items.push(<SmartDeviceItem key={this.props.devices[i].sdid} img={this.props.devices[i].img} sdid={this.props.devices[i].sdid} sdname={ this.props.devices[i].sdname } />);
 }
-
 return items;
-
 }
 
 render(){
@@ -55,19 +23,20 @@ let items = this.itemRenders();
 
 return (
 
- <Grid>   
-{
+   <Masonry
+      disableImagesLoaded={false} 
+      updateOnEachImageLoad={false} 
+    >
+                
+    { items }      
 
-items
+   </Masonry>
 
-}
-</Grid>
 );
 
 }
 
 }
-
 
 class SmartDeviceItem extends Component {
 
@@ -79,19 +48,15 @@ render(){
 
 return (
 
-    <Col xs={6} md={3}>
-     <div className="card-item">
-     <Panel>
-    <Link to={"/device/"+this.props.deviceId}>
+<Panel>
+    <Link to={"/device/"+this.props.sdid}>
      <div>
-      <div><h4 className="title-top">{this.props.deviceName}</h4></div>  
-     <Image src={thumbnail} rounded responsive/>
-     <div><h4 className="title-bottom">ID: {this.props.deviceId}</h4></div>
+      <div><h4 className="title-top">{this.props.sdid}</h4></div>  
+     <Image src={this.props.img} rounded responsive/>
+     <div><h4 className="title-bottom">ID: {this.props.sdname}</h4></div>
      </div>
      </Link>  
-    </Panel>
-        </div>
-    </Col> 
+</Panel>
 
 );
 
@@ -99,4 +64,8 @@ return (
     
 }
 
+
 export default TodoLists;
+
+
+

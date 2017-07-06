@@ -19,7 +19,13 @@ return (
         </Row>
 
         <Row>
-         <SmartDeviceLists/>
+         
+           <div style={{ marginLeft:"15%", marginTop: "3%" }}>
+
+           <SmartDeviceLists/> 
+
+           </div>     
+
         </Row>
 
     </Grid>
