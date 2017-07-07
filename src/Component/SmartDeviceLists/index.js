@@ -58,12 +58,12 @@ let mydata = [
 },
 {
     sdid:"1234567890900",
-    sdname:"435435vfdvfdvfd",
+    sdname:"435435vfdv",
     img: thumbnail
 },
 {
     sdid:"1234567890710",
-    sdname:"435435vfdvfdvfd",
+    sdname:"435435vfdvf",
     img: thumbnail
 }
 
@@ -71,7 +71,10 @@ let mydata = [
 
 
 return (
+<div className="smartdevice-margin-left">
 <TodoLists devices={mydata}/>  
+</div>
+
 );
 
 }

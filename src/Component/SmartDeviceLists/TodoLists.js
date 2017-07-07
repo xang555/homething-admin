@@ -47,14 +47,11 @@ constructor(props){
 render(){
 
 return (
-
 <Panel>
     <Link to={"/device/"+this.props.sdid}>
-     <div>
-      <div><h4 className="title-top">{this.props.sdid}</h4></div>  
+      <div><h4 className="title-top">{this.props.sdname}</h4></div>  
      <Image src={this.props.img} rounded responsive/>
-     <div><h4 className="title-bottom">ID: {this.props.sdname}</h4></div>
-     </div>
+     <div><h4>ID: {this.props.sdid}</h4></div>
      </Link>  
 </Panel>
 
@@ -62,7 +59,7 @@ return (
 
 }
     
-}
+} 
 
 
 export default TodoLists;

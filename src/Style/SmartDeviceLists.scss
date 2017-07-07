@@ -5,12 +5,12 @@
 }
 
 .title-top {
-    @include margin-text(35px,35px);
+    @include margin-text(10px,10px);
     word-wrap: break-word;
 }
 
 .title-bottom {
-     @include margin-text(01px,0px);
+     @include margin-text(0px,0px);
 }
 
 .card-item {
@@ -18,7 +18,7 @@
 }
 
 .smartdevice-margin-left {
-   padding-left: 25%;
+   padding-left: 8%;
     margin-top: 3%;
 }
 
