@@ -17,7 +17,7 @@ ReactDOM.render(
         <Grid>
         <Row><Navbar/></Row>
         <Row>
-          <Route path="/login" component={Login}/>   
+          <Route path="/signin" component={Login}/>   
          <Route exact path="/" component={App}/>
          <Route path="/device/:sdid" component={SmartDeviceInfo}/>
         </Row>    

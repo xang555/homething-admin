@@ -15,10 +15,10 @@ import { Col,Row,
 
     return (
         
-    <div style={{ marginTop:"10%", width:"55%",marginLeft:"30%" }}>
+    <div style={{ marginTop:"10%", width:"55%",marginLeft:"25%" }}>
 
     <Panel>
-    <div style={{ marginTop:"4%",marginLeft:"40%",marginBottom:"5%" }}><h2>Login Now</h2></div>    
+    <div style={{ marginTop:"4%",marginLeft:"35%",marginBottom:"5%" }}><h2>Homething Admin</h2></div>    
     <div >
    <Form horizontal>
     <FormGroup controlId="formUserName" bsSize="large">
