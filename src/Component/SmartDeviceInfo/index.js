@@ -58,7 +58,7 @@ return (
       Also you can delete this smartDevice by click delete button</Well>    
 </div>
 
-<div style={{ marginTop:"5%" }}><Button type="submit" bsStyle="default" bsSize="default" block><span style={{color:"#e61125"}}>Delete</span></Button></div>
+<div style={{ marginTop:"5%" }}><Button type="submit" bsStyle="default" block><span style={{color:"#e61125"}}>Delete</span></Button></div>
 
 </Col>
 </div> 

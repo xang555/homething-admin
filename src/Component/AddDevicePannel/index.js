@@ -13,7 +13,21 @@ class DevicePannel extends Component {
 
     constructor(props){
         super(props);
+        this.state={
+            stateValue:''
+        }
     }
+
+
+getValidationState = () => {
+    const length = this.state.stateValue.length;
+    if (length >= 13) return 'success';
+    else if (length > 0) return 'error';
+}
+
+handleChange = (e) => {
+ this.setState({ stateValue: e.target.value });
+}
 
     render(){
 
@@ -30,12 +44,12 @@ class DevicePannel extends Component {
               <div className="smartdevice-pannel-title">{title}</div>  
 
                 <Form horizontal>
-                    <FormGroup controlId="formHorizontalDeviceId" bsSize="large">
+                    <FormGroup controlId="formHorizontalDeviceId" bsSize="large" validationState={this.getValidationState()}>
                         <Col componentClass={ControlLabel} sm={3}>
                               ID
                         </Col>
                         <Col sm={7}>
-                            <FormControl type="text" placeholder="DeviceId" />
+                            <FormControl type="text" placeholder="DeviceId" onChange={this.handleChange} />
                         </Col>
                     </FormGroup>
 
