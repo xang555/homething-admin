@@ -9,20 +9,24 @@ import App from './App';
 import Navbar from './Component/Navbar';
 import SmartDeviceInfo from './Component/SmartDeviceInfo';
 import Login from './Component/Login';
+import store from './Store';
+import { Provider } from 'react-redux';
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
+    <Provider store={store}>
     <Router>
         <div>
         <Grid>
         <Row><Navbar/></Row>
         <Row>
-          <Route path="/signin" component={Login}/>   
-         <Route exact path="/" component={App}/>
-         <Route path="/device/:sdid" component={SmartDeviceInfo}/>
+        <Route path="/signin" component={Login}/>   
+        <Route exact path="/" component={App}/>
+        <Route path="/device/:sdid" component={SmartDeviceInfo}/>
         </Row>    
         </Grid>
         </div>    
     </Router>
+    </Provider>
     , document.getElementById('root'));
 registerServiceWorker();

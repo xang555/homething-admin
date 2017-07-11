@@ -2,6 +2,9 @@
  * Created by xang on 04/07/2017.
  */
 import React , { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { validationID, validationDeviceCode } from '../../Actions';
 import { Panel,
     Form, FormControl,
     FormGroup, Col,
@@ -9,27 +12,39 @@ import { Panel,
 } from 'react-bootstrap';
 import '../../Style/AddSmartDevice.css';
 
+
 class DevicePannel extends Component {
 
     constructor(props){
         super(props);
-        this.state={
-            stateValue:''
-        }
+
     }
 
 
-getValidationState = () => {
-    const length = this.state.stateValue.length;
-    if (length >= 13) return 'success';
+getValidationStateIdTextbox = () => {
+    const length = this.props.validate.IdInput.length;
+    if (length === 13) return 'success';
     else if (length > 0) return 'error';
 }
 
-handleChange = (e) => {
- this.setState({ stateValue: e.target.value });
+getValidationStateDeviceCodeTextbox = () => {
+    const length = this.props.validate.DeviceCodeInput.length;
+    if (length === 8) return 'success';
+    else if (length > 0) return 'error';
 }
 
-    render(){
+isDisable = () =>{
+const inputIdlength = this.props.validate.IdInput.length;
+ const inputDeviceCodelength = this.props.validate.DeviceCodeInput.length;
+if(inputIdlength === 13 && inputDeviceCodelength === 8){
+    return false;
+}
+return true;
+}
+
+
+
+ render(){
 
         const title = (
             <h3>Add SmartDevice</h3>
@@ -44,21 +59,21 @@ handleChange = (e) => {
               <div className="smartdevice-pannel-title">{title}</div>  
 
                 <Form horizontal>
-                    <FormGroup controlId="formHorizontalDeviceId" bsSize="large" validationState={this.getValidationState()}>
+                    <FormGroup controlId="formHorizontalDeviceId" bsSize="large" validationState={this.getValidationStateIdTextbox()}>
                         <Col componentClass={ControlLabel} sm={3}>
                               ID
                         </Col>
                         <Col sm={7}>
-                            <FormControl type="text" placeholder="DeviceId" onChange={this.handleChange} />
+                            <FormControl type="text" placeholder="DeviceId" onChange={(e) =>  this.props.validationID(e.target.value)} />
                         </Col>
                     </FormGroup>
 
-                    <FormGroup controlId="formHorizontalDeviceCode" bsSize="large">
+                    <FormGroup controlId="formHorizontalDeviceCode" bsSize="large"  validationState={this.getValidationStateDeviceCodeTextbox()}>
                         <Col componentClass={ControlLabel} sm={3}>
                             Device Code
                         </Col>
                         <Col sm={7}>
-                            <FormControl type="text" placeholder="Device Code" />
+                            <FormControl type="text" placeholder="Device Code" onChange={(e) => this.props.validationDeviceCode(e.target.value)} />
                         </Col>
                     </FormGroup>
 
@@ -78,7 +93,7 @@ handleChange = (e) => {
 
                     <FormGroup>
                         <Col smOffset={4} sm={5}>
-                            <Button bsSize="large" bsStyle="success" type="submit" block>
+                            <Button bsSize="large" bsStyle="success" type="submit" block disabled={ this.isDisable() }> 
                                 Add Device
                             </Button>
                         </Col> 
@@ -96,4 +111,13 @@ handleChange = (e) => {
 
 }
 
-export default DevicePannel;
+
+const mapStateToProps  = (state) => {
+return {validate: state.validationinput}
+}
+
+const mapDispatchToProps = (dispatch) => {
+return bindActionCreators({ validationID,validationDeviceCode },dispatch);
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(DevicePannel);
