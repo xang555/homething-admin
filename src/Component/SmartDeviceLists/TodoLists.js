@@ -12,7 +12,7 @@ constructor(props){
 itemRenders = () => {
 let items = [];
 for(let i =0 ; i < this.props.devices.length;i++){
- items.push(<SmartDeviceItem key={this.props.devices[i].sdid} img={this.props.devices[i].img} sdid={this.props.devices[i].sdid} sdname={ this.props.devices[i].sdname } />);
+ items.push(<SmartDeviceItem key={this.props.devices[i].sdid} img={this.props.devices[i].img} sdid={this.props.devices[i].sdid} sdname={ this.props.devices[i].nicname } />);
 }
 return items;
 }
