@@ -3,6 +3,11 @@ import { Panel,Image} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Masonry from 'react-masonry-component';
 
+import ic_switch from '../../Icon/ic_switch.svg';
+import ic_alarm from '../../Icon/ic_alarm.svg';
+import ic_gass_sensor from '../../Icon/ic_gass_sensor.svg';
+import ic_temp_hump from '../../Icon/ic_temp_and_humi.svg';
+
 class TodoLists extends React.PureComponent {
 
 constructor(props){
@@ -12,7 +17,26 @@ constructor(props){
 itemRenders = () => {
 let items = [];
 for(let i =0 ; i < this.props.devices.length;i++){
- items.push(<SmartDeviceItem key={this.props.devices[i].sdid} img={this.props.devices[i].img} sdid={this.props.devices[i].sdid} sdname={ this.props.devices[i].nicname } />);
+
+    let img = null;
+
+    switch(this.props.devices[i].type){
+
+        case 0 :
+            img = ic_switch;
+            break;
+        case 1:
+            img = ic_temp_hump;
+            break;
+        case 2:
+            img = ic_gass_sensor;
+            break;
+        case 3:
+            img = ic_alarm;
+
+    }
+
+ items.push(<SmartDeviceItem key={this.props.devices[i].sdid} img={img} sdid={this.props.devices[i].sdid} sdname={ this.props.devices[i].nicname } />);
 }
 return items;
 }
@@ -50,7 +74,7 @@ return (
 <Panel>
     <Link to={"/device/"+this.props.sdid}>
       <div><h4 className="title-top">{this.props.sdname}</h4></div>  
-     <Image src={this.props.img} rounded responsive/>
+     <img src={this.props.img} className="img-card"/>
      <div><h4>ID: {this.props.sdid}</h4></div>
      </Link>  
 </Panel>

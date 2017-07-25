@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reqdevices } from '../../Actions';
 import '../../Style/SmartDeviceLists.css';
-import thumbnail from '../../Icon/thumbnail.png';
 
 class SmartDeviceLists extends Component {
 
@@ -30,7 +29,7 @@ content = <div className='loader'/>;
 }else if(!isfetch && devices.length !=0){
 content = <TodoLists devices={devices}/>;
 }else if(!isfetch && errmsg != undefined){
-content = <Alert bsStyle="danger"><strong>Loading Devices Failure</strong> please try again.</Alert>;
+content = <Alert bsStyle="danger"><strong>Loading Devices Failure</strong>{errmsg}</Alert>;
 }
 
 return (

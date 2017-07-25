@@ -47,7 +47,7 @@ return true;
  render(){
 
         const title = (
-            <h3>Add SmartDevice</h3>
+            <h3>Add HomeThing Device</h3>
         );
 
         return (
