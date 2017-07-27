@@ -40,9 +40,9 @@ import { reqlogin } from '../../Actions';
      });
     }
 
-    handleOnLoginButtonClick = (event) =>{
-
-
+    handleOnLoginButtonClick = (e) =>{
+    e.preventDefault();
+      
 
     }
 
