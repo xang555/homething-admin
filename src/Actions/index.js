@@ -16,6 +16,7 @@ export function validationDeviceCode(values){
     }
 }
 
+//---------------  device lists  ---------------------//
 export const INVALIDATE_DEVICE_LISTS = "invalidate_devices_lists";
 export const REQUEST_DEVICES_LISTS = "req_devices";
 export const SUCCESS_DEVICES_LISTS ="success_devices";
@@ -51,7 +52,7 @@ export function reqdevices(){
         return fetch('https://homethingapi.xangnam.com/homething/admin/devices',{
             method:'GET',
             headers:{
-                'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1YWRtaW4iOiJhZG1pbiIsImlhdCI6MTUwMDkxNjQ0MiwiZXhwIjoxNTAxMDAyODQyfQ.kPZVTlMTBGpiiGpiMP9F6ICN679jsClQXXQEJ_wKdWs'
+                'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1YWRtaW4iOiJhZG1pbiIsImlhdCI6MTUwMTEzNTY3OSwiZXhwIjoxNTAxMjIyMDc5fQ.0T2GS9N93dxEQPtdgvT68MSgOaKjKp-gl0SHTyQn2fQ'
             }
         }).then(response => {
 
@@ -82,4 +83,71 @@ export function reqdevices(){
     }
 }
 
+//--------------- login ---------------------//
 
+export const LOGIN_SUCCESSFULLY = "login_successfully";
+export const LOGIN_FAILURE = "login_failure";
+export const LOGIN_INIT = "login_init";
+
+export function Initlogin(){
+    return {
+        type: LOGIN_INIT
+    }
+}
+
+export function loginsuccessfully(token) {
+    return {
+        type : LOGIN_SUCCESSFULLY,
+        token
+    }
+}
+
+export function loginfailure(err){
+    return {
+        type: LOGIN_FAILURE,
+        err
+    }
+}
+
+export function reqlogin(user,passwd){
+    return dispatch=> {
+
+     dispatch(Initlogin());
+     
+     return fetch("https://homethingapi.xangnam.com/homething/admin/login",{
+         method: "POST",
+         headers:{
+             "Content-Type" : "application/x-www-form-urlencoded"
+         },
+         body: JSON.stringify({
+              user : user,
+              passwd : passwd
+         })   
+     }).then(response => {
+         
+            if(response.status === 200){
+                return response;
+            }else {
+                let error = new Error(response.statusText);
+                error.response = response;
+                throw error;
+            }
+
+     }).then(response => {
+         return response.json();
+     }).then(json => {
+
+        if(json.err === 0){
+            dispatch(loginsuccessfully(json.token));
+        }else{
+            dispatch(loginfailure("Login Failure"));
+        }
+
+     }).catch(error => {
+            dispatch(loginfailure(error));
+     });
+
+
+    }
+
+}

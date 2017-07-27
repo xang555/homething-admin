@@ -4,12 +4,48 @@ import { Col,Row,
     Button,FormGroup,
     FormControl,Form,Well,
     ControlLabel,Checkbox,Label} from 'react-bootstrap';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { reqlogin } from '../../Actions';
 
  class Login extends Component {
 
     constructor(props){
         super(props);
+
+      this.state = {
+          user : "",
+          passwd:"",
+          isremem : false
+      }
+
     }
+
+
+    handleOnUserNamechange = (event) =>{
+     this.setState({
+       user : event.target.value
+     });
+    }
+
+    handleOnPasswdChange = (event) => {
+    this.setState({
+       passwd : event.target.value
+     });
+    }
+
+    handleOnRememberIsCheck = (event) => {
+    this.setState({
+       isremem : event.target.value
+     });
+    }
+
+    handleOnLoginButtonClick = (event) =>{
+
+
+
+    }
+
 
     render(){
 
@@ -65,4 +101,13 @@ import { Col,Row,
 
  }   
 
- export default Login;
+
+  const mapStateToProps = (state) => {
+    return ({ loginState : state.lgoin });
+  }
+
+ const mapDispatchToProps = (dispatch) => {
+      return bindActionCreators({reqlogin},dispatch);
+  }
+
+ export default connect(mapStateToProps,mapDispatchToProps)(Login);
