@@ -23,7 +23,7 @@ function FetchDevices(state = initDevices, action){
                 });
         case FALURE_DEVICES_LISTS :
                 return Object.assign({},state,{
-                    errmsg : action.error,
+                    errmsg : action.error.message,
                     isFetching: false   
                 });
         default:
