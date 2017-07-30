@@ -8,8 +8,6 @@ class SmartDeviceInfo extends Component {
 
 constructor(props){
     super(props);
-
-    console.log(this.props);
 }
 
 render(){
@@ -17,7 +15,6 @@ render(){
 let { match } = this.props;
 
 return (
-
 
 <Grid>
 

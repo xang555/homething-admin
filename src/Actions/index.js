@@ -51,7 +51,7 @@ export function reqdevices(){
         return fetch('https://homethingapi.xangnam.com/homething/admin/devices',{
             method:'GET',
             headers:{
-                'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1YWRtaW4iOiJhZG1pbiIsImlhdCI6MTUwMDkxNjQ0MiwiZXhwIjoxNTAxMDAyODQyfQ.kPZVTlMTBGpiiGpiMP9F6ICN679jsClQXXQEJ_wKdWs'
+                'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1YWRtaW4iOiJhZG1pbiIsImlhdCI6MTUwMTM4NzAyOSwiZXhwIjoxNTAxNDczNDI5fQ.KeyHD_s1JY4NfBTzobdCzXy41Qv9Lt9TBx_8r46FsRI'
             }
         }).then(response => {
 
@@ -76,7 +76,7 @@ export function reqdevices(){
             }
 
         }).catch(error =>{
-            dispatch(errordevices(error));
+            dispatch(errordevices(error.message));
         })    
 
     }
