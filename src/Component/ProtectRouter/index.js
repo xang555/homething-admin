@@ -10,9 +10,21 @@ class ProtectRouter extends Comment {
 
 render(){
 
-       
+ let content = null;
+ 
+ if(this.props.verify.isverifying){
+     content = <div className='loader'/>;
+ }else {
+
+    if(this.props.verify.status_code === 0){
+            
+    }else if(this.props.verify.status_code === 401){
+
+    }
+
+ }
     
-    
+
 
 }
 
