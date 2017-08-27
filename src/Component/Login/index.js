@@ -8,8 +8,7 @@ import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { reqlogin } from '../../Actions';
-
-let SAVE_TOKEN = "token";
+import { SAVE_TOKEN } from '../../appconfig';
 
  class Login extends Component {
 
@@ -75,6 +74,8 @@ let SAVE_TOKEN = "token";
 
     handleOnLoginButtonClick = (event) =>{
   
+       event.preventDefault();
+
       let { user, passwd } = this.state;
       if(user.trim().length <=0){
         this.setState({
@@ -85,9 +86,8 @@ let SAVE_TOKEN = "token";
           validationStatePasswd:"error"
         });
       }else {
-        this.props. reqlogin(user,passwd);
+        this.props.reqlogin(user,passwd);
       }
-      event.preventDefault();
 
     }
 
@@ -101,8 +101,8 @@ let SAVE_TOKEN = "token";
             <Redirect to="/"/>
           );
       }else if(token.length > 0 ){
-      let isremember = this.input.checked;
-      if(isremember){
+      let isrmb = this.rmb.checked;
+      if(isrmb){
         this._localSaveToken(token);
       }else {
         this._sessionSaveToken(token);
@@ -149,7 +149,7 @@ let SAVE_TOKEN = "token";
 
     <FormGroup>
       <Col smOffset={2} sm={10}>
-        <Checkbox name="isremem"  inputRef={ref => { this.input = ref; }}>Remember me</Checkbox>
+        <Checkbox name="rmb"  inputRef={ref => { this.rmb = ref; }}>Remember me</Checkbox>
       </Col>
     </FormGroup>
 

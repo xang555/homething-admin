@@ -75,7 +75,7 @@ export function reqdevices(token){
             if(json.err === 0){
                  dispatch(successreqdevices(json.devices));   
             }else {
-                dispatch(errordevices("oop! can not load HomeThing Devices!."))    
+                dispatch(errordevices("oop! can not load HomeThing Devices!."));    
             }
 
         }).catch(error =>{
