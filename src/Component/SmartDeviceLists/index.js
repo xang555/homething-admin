@@ -12,9 +12,22 @@ constructor(props){
     super(props);
 }
 
-
 componentDidMount(){
-this.props.reqdevices(); //loading devices
+let token = null;
+if(this._getlocalToken()){
+    token = this._getlocalToken();
+}else {
+    token = this._getsessionToken();
+}    
+this.props.reqdevices(token); //loading devices
+}
+
+_getlocalToken = () =>{
+    return localStorage.getItem("token");
+}
+
+_getsessionToken = () =>{
+    return sessionStorage.getItem("token");
 }
 
 render(){

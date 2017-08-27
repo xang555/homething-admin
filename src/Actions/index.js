@@ -1,4 +1,6 @@
 
+import { BASE_API_URL } from '../appconfig';
+
 export const VALIDATION_ID_INPUT = "valid_id";
 export const VALIDATION_DEVICECODE_INPUT ="valid_device_code";
 
@@ -44,19 +46,15 @@ export function errordevices(error){
     }
 }
 
-export function reqdevices(){
+export function reqdevices(token){
     return dispatch => {
 
         dispatch(startreqdevices());
 
-        return fetch('https://homethingapi.xangnam.com/homething/admin/devices',{
+        return fetch(BASE_API_URL + '/homething/admin/devices',{
             method:'GET',
             headers:{
-<<<<<<< HEAD
-                'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1YWRtaW4iOiJhZG1pbiIsImlhdCI6MTUwMTM4NzAyOSwiZXhwIjoxNTAxNDczNDI5fQ.KeyHD_s1JY4NfBTzobdCzXy41Qv9Lt9TBx_8r46FsRI'
-=======
-                'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1YWRtaW4iOiJhZG1pbiIsImlhdCI6MTUwMTEzNTY3OSwiZXhwIjoxNTAxMjIyMDc5fQ.0T2GS9N93dxEQPtdgvT68MSgOaKjKp-gl0SHTyQn2fQ'
->>>>>>> adc17da9110a965a19b72c3551398216dab5c63b
+                'Authorization' : 'Bearer '+ token 
             }
         }).then(response => {
 
@@ -118,10 +116,10 @@ export function reqlogin(user,passwd){
 
      dispatch(Initlogin());
      
-     return fetch("https://homethingapi.xangnam.com/homething/admin/login",{
+     return fetch(BASE_API_URL + "/homething/admin/login",{
          method: "POST",
          headers:{
-             "Content-Type" : "application/x-www-form-urlencoded"
+             'Content-Type': 'application/json'
          },
          body: JSON.stringify({
               user : user,
@@ -154,4 +152,15 @@ export function reqlogin(user,passwd){
 
     }
 
+}
+
+//-------------- logout-------------------//
+
+export const LOG_OUT = "logout";
+
+export function logout(statuslogout){
+    return {
+        type:LOG_OUT,
+        statuslogout
+    }
 }
