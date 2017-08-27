@@ -154,6 +154,72 @@ export function reqlogin(user,passwd){
 
 }
 
+//------------- verify token ----------//
+export const VERIFY_INIT = "verify_init";
+export const VERIFY_SUCCESSFULLY ="verify_successfully";
+export const VERIFY_FAILURE ="verify_failure";
+
+export function verifyTokenInit(){
+    return {
+        type : VERIFY_INIT
+    }
+}
+
+export function verifyTokenSuccessfully(status){
+    return {
+        type : VERIFY_SUCCESSFULLY,
+        status
+    }
+}
+
+
+export function verifyTokenFailure(err){
+    return {
+        type : VERIFY_FAILURE,
+        err
+    }
+}
+
+export function verifyToken(token){
+
+return dispatch => {
+
+    dispatch(verifyTokenInit());
+
+         return fetch(BASE_API_URL + "/homething/admin/verify",{
+         method: "GET",
+         headers:{
+             'Authorization' : 'Bearer '+ token 
+         }  
+     }).then(response => {
+         
+            if(response.status === 200 || response.status === 401){
+                return response;
+            } else {
+                let error = new Error(response.statusText);
+                error.response = response;
+                throw error;
+            }
+
+     }).then(response => {
+         return response.json();
+     }).then(json => {
+
+        if(json.err === 0){
+            dispatch(verifyTokenSuccessfully(0));
+        }else if(json.err === 401){
+            dispatch(verifyTokenSuccessfully(401));
+        }else {
+            dispatch(verifyTokenFailure("something wrong"));
+        }
+
+     }).catch(error => {
+            dispatch(verifyTokenFailure(error.message));
+     });
+}
+
+}
+
 //-------------- logout-------------------//
 
 export const LOG_OUT = "logout";

@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { reqdevices } from '../../Actions';
 import '../../Style/SmartDeviceLists.css';
+import '../../Style/Loading.css';
+
 
 class SmartDeviceLists extends Component {
 
