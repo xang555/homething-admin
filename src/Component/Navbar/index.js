@@ -16,18 +16,46 @@ class HomethingNavbar extends Component {
     constructor(props){
         super(props);
 
+        this.state = {
+            is_logout : true
+        }
+
     }
 
 
-    _handlelogout = (event) => {
+_getlocalToken = () =>{
+        return localStorage.getItem(SAVE_TOKEN);
+    }
+
+_getSessionToken = () =>{
+        return sessionStorage.getItem(SAVE_TOKEN);
+    }
+
+
+_handlelogout = (event) => {
 
         localStorage.removeItem(SAVE_TOKEN);
         sessionStorage.removeItem(SAVE_TOKEN);
         this.props.logout(true);
 
-     event.preventDefault();
+      event.preventDefault();
 
     }
+
+
+componentWillMount(){
+
+    if(_getlocalToken() != null || _getSessionToken() != null){
+        this.setState({
+            is_logout: false
+        });
+    }else {
+         this.setState({
+            is_logout: true
+        });
+    }
+
+}
 
     render(){
 
