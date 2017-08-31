@@ -8,8 +8,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { logout } from '../../Actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-let SAVE_TOKEN = "token";
+import { SAVE_TOKEN } from '../../appconfig'
 
 class HomethingNavbar extends Component {
 
@@ -34,18 +33,17 @@ _getSessionToken = () =>{
 
 _handlelogout = (event) => {
 
-        localStorage.removeItem(SAVE_TOKEN);
-        sessionStorage.removeItem(SAVE_TOKEN);
-        this.props.logout(true);
+localStorage.removeItem(SAVE_TOKEN);
+sessionStorage.removeItem(SAVE_TOKEN);
+<Redirect to="/signin"/>
+event.preventDefault();
 
-      event.preventDefault();
-
-    }
+}
 
 
 componentWillMount(){
 
-    if(_getlocalToken() != null || _getSessionToken() != null){
+    if(this._getlocalToken() || this._getSessionToken()){
         this.setState({
             is_logout: false
         });
@@ -59,12 +57,6 @@ componentWillMount(){
 
     render(){
 
-        if(this.props.logout.islogout){
-            return (
-               <Redirect to="/signin"/>    
-            );
-        }
-
         return (
             <Navbar fixedTop>
                 <Navbar.Header>
@@ -75,7 +67,7 @@ componentWillMount(){
                 </Navbar.Header>
                 <Nav pullRight>
                    {
-                       !this.props.logout.islogout ? ( <NavItem eventKey={1} href="#" onClick={this._handlelogout}><span className="glyphicon glyphicon-log-out"/>  Logout</NavItem>):null
+                       !this.state.is_logout ? ( <NavItem eventKey={1} href="#" onClick={this._handlelogout}><span className="glyphicon glyphicon-log-out"/>  Logout</NavItem>):null
                    }
                 </Nav>
             </Navbar>
@@ -85,14 +77,4 @@ componentWillMount(){
 
 }
 
-const mapStateToProps = (state) =>{
-    return {
-        logout : state.logout
-    };
-}
-
-const mapDispatchToProps = (dispatch) =>{
-    return bindActionCreators({logout},dispatch);
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(HomethingNavbar);
+export default HomethingNavbar;

@@ -21,7 +21,7 @@ ReactDOM.render(
         <Row><Navbar/></Row>
         <Row>
         <Route path="/signin" component={Login}/>   
-         <Route exact path="/" component={App}/> 
+        <Route exact path="/" component={App}/> 
         <Route path="/device/:sdid" component={SmartDeviceInfo}/>
         </Row>    
         </Grid>
