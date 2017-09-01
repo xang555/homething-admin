@@ -3,7 +3,7 @@ import './Style/App.css';
 import { Col,Row, Grid} from 'react-bootstrap';
 import DevicePannel from './Component/AddDevicePannel';
 import SmartDevicePannel from './Component/SmartDevicesPannel';
-import { verifyToken } from './Actions';
+import { verifyToken,logout } from './Actions';
 import { Redirect } from 'react-router-dom';
 import { SAVE_TOKEN } from './appconfig';
 import { bindActionCreators } from 'redux';
@@ -25,6 +25,7 @@ _getSessionToken = () =>{
         return sessionStorage.getItem(SAVE_TOKEN);
     }
 
+
 componentWillMount(){
 
   let token = null;
@@ -33,17 +34,22 @@ componentWillMount(){
     }else if(this._getSessionToken()){
         token = this._getSessionToken();
     }
-  this.props.verifyToken(token);
 
-}
+this.props.verifyToken(token);
+
+}    
+
 
 render() {
 
 let content = null;
- 
+//this.props.logout(false); // set state logout  
+
  if(this.props.verify.isverifying){
      content = <div className='verify-loading loader'/>;
  }else {
+
+     console.log("verify code : " + this.props.verify.status_code );
 
     if(this.props.verify.status_code === 0){
 

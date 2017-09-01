@@ -7,7 +7,7 @@ import { Col,Row,
 import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { reqlogin } from '../../Actions';
+import { reqlogin,logout } from '../../Actions';
 import { SAVE_TOKEN } from '../../appconfig';
 
  class Login extends Component {
@@ -95,11 +95,14 @@ import { SAVE_TOKEN } from '../../appconfig';
     render(){
 
     let token = this.props.loginState.token.trim();
+    this.props.logout(true); //set logout state
 
       if(this.state.token.length > 0){
+
           return (
             <Redirect to="/"/>
           );
+
       }else if(token.length > 0 ){
       let isrmb = this.rmb.checked;
       if(isrmb){
@@ -107,6 +110,7 @@ import { SAVE_TOKEN } from '../../appconfig';
       }else {
         this._sessionSaveToken(token);
       }
+
          return (
            <Redirect to="/"/>
          );
@@ -177,11 +181,11 @@ import { SAVE_TOKEN } from '../../appconfig';
 
 
   const mapStateToProps = (state) => {
-    return ({ loginState : state.login });
+    return ({ loginState : state.login});
   }
 
  const mapDispatchToProps = (dispatch) => {
-      return bindActionCreators({reqlogin},dispatch);
+      return bindActionCreators({reqlogin,logout},dispatch);
   }
 
  export default connect(mapStateToProps,mapDispatchToProps)(Login);

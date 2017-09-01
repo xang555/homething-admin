@@ -5,7 +5,7 @@ import React , { Component } from 'react';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import logo from '../../Icon/banner_about.png';
 import { Link, Redirect } from 'react-router-dom';
-import { logout } from '../../Actions';
+import { logout,logoutFromApp } from '../../Actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { SAVE_TOKEN } from '../../appconfig'
@@ -14,46 +14,17 @@ class HomethingNavbar extends Component {
 
     constructor(props){
         super(props);
-
-        this.state = {
-            is_logout : true
-        }
-
-    }
-
-
-_getlocalToken = () =>{
-        return localStorage.getItem(SAVE_TOKEN);
-    }
-
-_getSessionToken = () =>{
-        return sessionStorage.getItem(SAVE_TOKEN);
     }
 
 
 _handlelogout = (event) => {
 
+event.preventDefault();
 localStorage.removeItem(SAVE_TOKEN);
 sessionStorage.removeItem(SAVE_TOKEN);
-<Redirect to="/signin"/>
-event.preventDefault();
 
 }
 
-
-componentWillMount(){
-
-    if(this._getlocalToken() || this._getSessionToken()){
-        this.setState({
-            is_logout: false
-        });
-    }else {
-         this.setState({
-            is_logout: true
-        });
-    }
-
-}
 
     render(){
 
@@ -66,9 +37,9 @@ componentWillMount(){
                     </Navbar.Brand>
                 </Navbar.Header>
                 <Nav pullRight>
-                   {
-                       !this.state.is_logout ? ( <NavItem eventKey={1} href="#" onClick={this._handlelogout}><span className="glyphicon glyphicon-log-out"/>  Logout</NavItem>):null
-                   }
+                   {/* {
+                       !this.props.logout_state.islogout ? ( <NavItem eventKey={1} href="#" onClick={this._handlelogout}><span className="glyphicon glyphicon-log-out"/>  Logout</NavItem>):null
+                   }  */}
                 </Nav>
             </Navbar>
         );
@@ -77,4 +48,13 @@ componentWillMount(){
 
 }
 
-export default HomethingNavbar;
+const mapStateToProps = (state) => {
+    return ({ logout_state : state.logout});
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({logoutFromApp},dispatch);    
+}
+
+ //export default connect(mapStateToProps,mapDispatchToProps)(HomethingNavbar);
+ export default HomethingNavbar;

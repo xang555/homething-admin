@@ -223,6 +223,7 @@ return dispatch => {
 //-------------- logout-------------------//
 
 export const LOG_OUT = "logout";
+export const LOG_OUT_FROM_APP = "logout_from_app";
 
 export function logout(statuslogout){
     return {
@@ -230,3 +231,11 @@ export function logout(statuslogout){
         statuslogout
     }
 }
+
+export function logoutFromApp(islogout){
+    return {
+        type: LOG_OUT_FROM_APP,
+        islogout
+    }
+}
+

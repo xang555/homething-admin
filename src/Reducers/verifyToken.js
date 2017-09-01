@@ -2,7 +2,7 @@ import { VERIFY_INIT, VERIFY_FAILURE, VERIFY_SUCCESSFULLY } from '../Actions';
 
 let initstate = {
     isverifying : false,
-    status_code : 401,
+    status_code : 500,
     err: ''
 }
 
