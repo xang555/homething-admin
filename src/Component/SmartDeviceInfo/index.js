@@ -3,11 +3,7 @@ import { Col,Row, Grid, Panel,Image,
     Button,FormGroup,FormControl,Form,Well} from 'react-bootstrap';
 import QRCode from 'qrcode.react';
 import thumbnail from '../../Icon/thumbnail.png';
-import { verifyToken, logout } from '../../Actions';
-import { Redirect } from 'react-router-dom';
 import { SAVE_TOKEN } from '../../appconfig';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 
 class SmartDeviceInfo extends Component {
 
@@ -15,44 +11,7 @@ constructor(props){
     super(props);
 }
 
-
-_getlocalToken = () =>{
-        return localStorage.getItem(SAVE_TOKEN);
-    }
-
-_getSessionToken = () =>{
-        return sessionStorage.getItem(SAVE_TOKEN);
-    }
-
-componentWillMount(){
-    let token = null;
-    if(this._getlocalToken()){
-        token = this._getlocalToken();
-    }else if(this._getSessionToken()){
-        token = this._getSessionToken();
-    }
-    this.props.verifyToken(token);
-}
-
-
 render(){
-
-this.props.logout(false); //set state logout
-
-if(this.props.logout.handle_login){
-    return <Redirect to="/signin"/>;
-}
-
-if(this.props.verify.isverifying){
-    return (<div className='verify-loading loader'/>);
- }else {
-
-   if(this.props.verify.status_code === 401 || this.props.verify.err){
-       
-       return (<Redirect to='/signin'/>);      
-    }
-
- }
 
 
 let { match } = this.props;
@@ -114,12 +73,4 @@ return (
 }
 
 
-const mapStateToProps = (state) => {
-    return {verify : state.TokenCheck,logout : state.logout};
-}
-
-const mapDispatchToProps = (dispatch) =>{
-    return bindActionCreators({verifyToken,logout},dispatch);
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(SmartDeviceInfo);
+export default SmartDeviceInfo;

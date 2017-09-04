@@ -158,6 +158,7 @@ export function reqlogin(user,passwd){
 export const VERIFY_INIT = "verify_init";
 export const VERIFY_SUCCESSFULLY ="verify_successfully";
 export const VERIFY_FAILURE ="verify_failure";
+export const RESET_VERIFY_STATE = "reset_verify_state";
 
 export function verifyTokenInit(){
     return {
@@ -177,6 +178,12 @@ export function verifyTokenFailure(err){
     return {
         type : VERIFY_FAILURE,
         err
+    }
+}
+
+export function resetVerifyState(){
+    return {
+        type : RESET_VERIFY_STATE
     }
 }
 
@@ -223,19 +230,10 @@ return dispatch => {
 //-------------- logout-------------------//
 
 export const LOG_OUT = "logout";
-export const LOG_OUT_FROM_APP = "logout_from_app";
 
-export function logout(statuslogout){
+export function logout(){
     return {
-        type:LOG_OUT,
-        statuslogout
-    }
-}
-
-export function logoutFromApp(islogout){
-    return {
-        type: LOG_OUT_FROM_APP,
-        islogout
+        type:LOG_OUT
     }
 }
 

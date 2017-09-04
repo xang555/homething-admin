@@ -5,9 +5,8 @@ import { Col,Row,
     FormControl,Form,Well,
     ControlLabel,Checkbox,Label, Alert} from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { reqlogin,logout } from '../../Actions';
+import { reqlogin } from '../../Actions';
 import { SAVE_TOKEN } from '../../appconfig';
 
  class Login extends Component {
@@ -25,41 +24,7 @@ import { SAVE_TOKEN } from '../../appconfig';
 
     }
 
-
-    componentWillMount() {
-
-      let token = "";
-      if(this._getlocalToken()){
-        token = this._getlocalToken();
-      }else if(this._getSessionToken()){
-        token = this._getSessionToken();
-      }
-
-      this.setState(
-        {
-          token:token
-        }
-      );
-
-    }
-
     
-    _localSaveToken = (token) => {
-      localStorage.setItem(SAVE_TOKEN,token)
-    }
-
-    _sessionSaveToken = (token) => {
-        sessionStorage.setItem(SAVE_TOKEN,token);
-    }
-
-    _getlocalToken = () =>{
-        return localStorage.getItem(SAVE_TOKEN);
-    }
-
-    _getSessionToken = () =>{
-        return sessionStorage.getItem(SAVE_TOKEN);
-    }
-
     handleChange = (event) =>{
 
     let target = event.target;
@@ -94,33 +59,10 @@ import { SAVE_TOKEN } from '../../appconfig';
 
     render(){
 
-    let token = this.props.loginState.token.trim();
-    this.props.logout(true); //set logout state
-
-      if(this.state.token.length > 0){
-
-          return (
-            <Redirect to="/"/>
-          );
-
-      }else if(token.length > 0 ){
-      let isrmb = this.rmb.checked;
-      if(isrmb){
-        this._localSaveToken(token);
-      }else {
-        this._sessionSaveToken(token);
-      }
-
-         return (
-           <Redirect to="/"/>
-         );
-
-      }
-
     let alert = null;
-
-    if(!this.props.loginState.isLoging && this.props.loginState.errmsg != undefined){
-      alert =  <Alert bsStyle="danger"><strong>Login Failure, </strong>{this.props.loginState.errmsg}</Alert>;
+      
+    if(!this.props.auth.isLoging && this.props.auth.errmsg === "401"){
+      alert =  <Alert bsStyle="danger"><strong>Login Failure, </strong>Please try again!</Alert>;
     }
       
     return (
@@ -152,16 +94,10 @@ import { SAVE_TOKEN } from '../../appconfig';
     </FormGroup>
 
     <FormGroup>
-      <Col smOffset={2} sm={10}>
-        <Checkbox name="rmb"  inputRef={ref => { this.rmb = ref; }}>Remember me</Checkbox>
-      </Col>
-    </FormGroup>
-
-    <FormGroup>
       <Col smOffset={4} sm={5}>
-        <Button  bsStyle="primary" type="submit" bsSize="large" disabled={this.props.loginState.isLoging} block onClick={this.handleOnLoginButtonClick}>
+        <Button  bsStyle="primary" type="submit" bsSize="large" disabled={this.props.auth.isLoging} block onClick={this.handleOnLoginButtonClick}>
           {
-           this.props.loginState.isLoging ? "Signin...":"signin"
+           this.props.auth.isLoging ? "Signin...":"signin"
          } 
         </Button>
       </Col>
@@ -181,11 +117,11 @@ import { SAVE_TOKEN } from '../../appconfig';
 
 
   const mapStateToProps = (state) => {
-    return ({ loginState : state.login});
+    return ({ auth : state.auth});
   }
 
  const mapDispatchToProps = (dispatch) => {
-      return bindActionCreators({reqlogin,logout},dispatch);
+      return bindActionCreators({reqlogin},dispatch);
   }
 
  export default connect(mapStateToProps,mapDispatchToProps)(Login);

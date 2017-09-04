@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { reqdevices } from '../../Actions';
 import '../../Style/SmartDeviceLists.css';
 import '../../Style/Loading.css';
+import { SAVE_TOKEN } from '../../appconfig';
 
 
 class SmartDeviceLists extends Component {
@@ -15,21 +16,12 @@ constructor(props){
 }
 
 componentDidMount(){
-let token = null;
-if(this._getlocalToken()){
-    token = this._getlocalToken();
-}else {
-    token = this._getsessionToken();
-}    
+let token = this._getsessionToken();   
 this.props.reqdevices(token); //loading devices
 }
 
-_getlocalToken = () =>{
-    return localStorage.getItem("token");
-}
-
 _getsessionToken = () =>{
-    return sessionStorage.getItem("token");
+    return sessionStorage.getItem(SAVE_TOKEN);
 }
 
 render(){
