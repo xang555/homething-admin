@@ -37,6 +37,8 @@ content = <div className='loader'/>;
 content = <TodoLists devices={devices}/>;
 }else if(!isfetch && errmsg != undefined){
 content = <Alert bsStyle="danger"><strong>Loading Devices Failure</strong>{errmsg}</Alert>;
+}else if(!isfetch && devices.length === 0){
+    content = <Alert bsStyle="warning">No Smart devices</Alert>;
 }
 
 return (
