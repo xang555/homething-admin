@@ -217,7 +217,7 @@ export function insertSmartDevice($sdid,$dpasswd,$dtype){
         body: JSON.stringify({
             sdid : $sdid,
             dtype : $dtype,
-            sharecode : $dpasswd
+            dpasswd : $dpasswd
         })
     }).then(response => {
         

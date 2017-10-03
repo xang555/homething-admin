@@ -3,7 +3,7 @@ import { SAVE_TOKEN } from '../appconfig';
 
 const initloginState = {
         isLoging : false,
-        token : _getTokenState() ? _getTokenState : null
+        token : _getTokenState() ? _getTokenState() : null
 }
 
 function auth(state = initloginState, action){ 
@@ -29,7 +29,10 @@ function auth(state = initloginState, action){
                 });
             case LOG_OUT :
                 _removeToken();
-                return initloginState;
+                return Object.assign({},state,{
+                    isLoging:false,
+                    token: null
+                 });
             default:
                 return state;
         }

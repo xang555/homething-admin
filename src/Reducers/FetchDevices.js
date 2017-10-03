@@ -18,12 +18,21 @@ function SearchSmartDevice($searcharray,$sdid,$dtype) {
             }
             let regex = new RegExp("^"+ $sdid + "+");
             let result = [];
-          for(let i =0 ; i < $searcharray.length ; i++){
-                if($searcharray[i].type === parseInt($dtype) && $searcharray[i].sdid.search(regex) != -1){  
-                    result.push($searcharray[i]);
-                }
-          }
-          
+
+            if($dtype === "all"){
+                for(let i =0 ; i < $searcharray.length ; i++){
+                    if($searcharray[i].sdid.search(regex) != -1){  
+                        result.push($searcharray[i]);
+                    }
+              }
+            }else {
+                for(let i =0 ; i < $searcharray.length ; i++){
+                    if($searcharray[i].type === parseInt($dtype) && $searcharray[i].sdid.search(regex) != -1){  
+                        result.push($searcharray[i]);
+                    }
+              }
+            }
+
           return result;
     }
 

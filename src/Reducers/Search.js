@@ -1,7 +1,7 @@
 import {SEARCH_BOX_CHANGE,SEARCH_OPTION_CHANGE} from '../Actions';
 
 let initState = {
-    opt : "0",
+    opt : "all",
     word : ""
 }
 

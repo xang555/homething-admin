@@ -21,10 +21,12 @@ return(
 
 <FormGroup bsSize="large">
 <FormControl componentClass="select" onChange = {(event) => this.props.search_option_change(event.target.value)} placeholder="SmartDevice Type">
+<option value="all">All</option>
 <option value="0">Smart Switch</option>
 <option value="1">humidity and temperature Sensor</option>
 <option value="2">Gass sensor</option>
 <option value="3">Smart alarm</option>
+<option value="4">Smart Plug</option>
 </FormControl>
 </FormGroup>
 

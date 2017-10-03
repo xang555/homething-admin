@@ -15,7 +15,7 @@ import { Panel,
 import '../../Style/AddSmartDevice.css';
 
 const StateButton = ({stateAdd}) => stateAdd ? <div>Adding</div>:<div>Add Device</div>;
-const FailureText = ({isFailure}) => isFailure ? <div style={{color : "#f00fff"}}>Add SmartDevice Failure</div> : null
+const FailureText = ({isFailure}) => isFailure ? <div style={{color : "#f00fff",marginLeft:"45%"}}>Add SmartDevice Failure</div> : null
 
 class DevicePannel extends Component {
 
@@ -103,6 +103,7 @@ this.props.insertSmartDevice(sdid,dpasswd,dtype); //add smart device
                                 <option value="1">humidity and temperature Sensor</option>
                                 <option value="2">Gass sensor</option>
                                 <option value="3">Smart alarm</option>
+                                <option value="4">Smart Plug</option>
                             </FormControl>
                         </Col>
                     </FormGroup>
