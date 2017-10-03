@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import validationinput from './ValidationInputReduxcuser';
 import FetchDevices from './FetchDevices';
-import login from './login';
-import logout from './logout';
-import TokenCheck from './verifyToken';
+import auth from './auth';
+import addSmartDevice from './AddDevices';
+import search from './Search';
 
-export default combineReducers({validationinput,FetchDevices,login,logout,TokenCheck});
+export default combineReducers({validationinput,FetchDevices,auth,addSmartDevice,search});
 

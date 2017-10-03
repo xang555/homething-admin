@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
-import './Style/App.css';
+import React,{ Component } from 'react';
+import { connect } from 'react-redux'
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap-theme.css';
+import './index.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Col,Row, Grid} from 'react-bootstrap';
-import DevicePannel from './Component/AddDevicePannel';
-import SmartDevicePannel from './Component/SmartDevicesPannel';
-import { verifyToken,logout } from './Actions';
-import { Redirect } from 'react-router-dom';
-import { SAVE_TOKEN } from './appconfig';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import SmartDeviceInfo from './Component/SmartDeviceInfo';
+import Login from './Component/Login';
+import Home from './Component/Home';
+import Navbar from './Component/Navbar';
+import { userIsNotAuthenticatedRedir,userIsAuthenticatedRedir } from './Auth';
 
 class App extends Component {
 
@@ -17,65 +19,30 @@ constructor(props){
 }
 
 
-_getlocalToken = () =>{
-        return localStorage.getItem(SAVE_TOKEN);
-    }
-
-_getSessionToken = () =>{
-        return sessionStorage.getItem(SAVE_TOKEN);
-    }
-
-
-componentWillMount(){
-
-  let token = null;
-    if(this._getlocalToken()){
-        token = this._getlocalToken();
-    }else if(this._getSessionToken()){
-        token = this._getSessionToken();
-    }
-
-this.props.verifyToken(token);
-
-}    
-
-
 render() {
 
-let content = null;
-//this.props.logout(false); // set state logout  
+return (
+     <Router>
+    <div>
+        <Grid>
+        <Row><Navbar/></Row>
+        <Row>
+        <Route path="/login" component={userIsNotAuthenticatedRedir(Login)}/>   
+        <Route exact path="/" component={userIsAuthenticatedRedir(Home)}/> 
+        <Route path="/device/:sdid" component={userIsAuthenticatedRedir(SmartDeviceInfo)}/>
+        </Row>    
+        </Grid>
+    </div> 
+       
+    </Router>
+)
 
- if(this.props.verify.isverifying){
-     content = <div className='verify-loading loader'/>;
- }else {
-
-     console.log("verify code : " + this.props.verify.status_code );
-
-    if(this.props.verify.status_code === 0){
-
-       content =(<Grid><Row><Col xs={12} md={12}><DevicePannel/></Col></Row>
-            <Row><Col xs={12} md={12}><SmartDevicePannel/></Col></Row></Grid>
-              ); 
-     
-    }else if(this.props.verify.status_code === 401){
-       content = <Redirect to='/signin'/>;      
-    }else if(this.props.verify.err){
-       content = <Redirect to='/signin'/>;   
-    }
-
- }
-
-    return content;
   }
 
 }
 
 const mapStateToProps = (state) => {
-    return {verify : state.TokenCheck};
+    return {auth : state.auth};
 }
 
-const mapDispatchToProps = (dispatch) =>{
-    return bindActionCreators({verifyToken},dispatch);
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(App);
+export default connect(mapStateToProps,null)(App);

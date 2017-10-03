@@ -1,2 +1,2 @@
-export const BASE_API_URL = "https://homethingapi.xangnam.com";
+export const BASE_API_URL = "http://localhost:3000";
 export const SAVE_TOKEN = "token";

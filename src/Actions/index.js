@@ -1,8 +1,10 @@
 
-import { BASE_API_URL } from '../appconfig';
+import { BASE_API_URL,SAVE_TOKEN } from '../appconfig';
 
 export const VALIDATION_ID_INPUT = "valid_id";
 export const VALIDATION_DEVICECODE_INPUT ="valid_device_code";
+export const GET_SMART_DEVICE_FILL = "get_sm_device";
+export const SMART_DEVICE_TYPE = "dtype";
 
 export function validationID(values){
     return {
@@ -18,11 +20,25 @@ export function validationDeviceCode(values){
     }
 }
 
+export function getSmartDevices(){
+    return {
+        type : GET_SMART_DEVICE_FILL,
+    }
+}
+
+export function selectSmartDevice(val){
+    return {
+        type : SMART_DEVICE_TYPE,
+        val
+    }
+}
+
 //---------------  device lists  ---------------------//
 export const INVALIDATE_DEVICE_LISTS = "invalidate_devices_lists";
 export const REQUEST_DEVICES_LISTS = "req_devices";
 export const SUCCESS_DEVICES_LISTS ="success_devices";
 export const FALURE_DEVICES_LISTS = "error_devices";
+export const SEARCH_DEVICE = "search_device";
 
 
 export function startreqdevices(){
@@ -43,6 +59,16 @@ export function errordevices(error){
     return {
         type:FALURE_DEVICES_LISTS,
         error
+    }
+}
+
+export function searchdevice(sdid,dtype){
+    return {
+        type : SEARCH_DEVICE,
+        keyword : {
+            sdid,
+            dtype
+        }
     }
 }
 
@@ -154,88 +180,106 @@ export function reqlogin(user,passwd){
 
 }
 
-//------------- verify token ----------//
-export const VERIFY_INIT = "verify_init";
-export const VERIFY_SUCCESSFULLY ="verify_successfully";
-export const VERIFY_FAILURE ="verify_failure";
+//------------- insert smart device ----------//
+export const START_INSERT_SMART_DEVICE = "start_insert";
+export const INSERT_SMART_DEVICE_SUCESSFULLY = "insert_successfully";
+export const INSERT_SMART_DEVICE_FAILURE = "insert_failure";
 
-export function verifyTokenInit(){
+export function startInsert(){
     return {
-        type : VERIFY_INIT
+        type : START_INSERT_SMART_DEVICE
     }
 }
 
-export function verifyTokenSuccessfully(status){
+export function insertSucessfully(){
     return {
-        type : VERIFY_SUCCESSFULLY,
-        status
+        type : INSERT_SMART_DEVICE_SUCESSFULLY,
     }
 }
 
-
-export function verifyTokenFailure(err){
+export function insertFailure(){
     return {
-        type : VERIFY_FAILURE,
-        err
+        type : INSERT_SMART_DEVICE_FAILURE,
     }
 }
 
-export function verifyToken(token){
+export function insertSmartDevice($sdid,$dpasswd,$dtype){
+    return dispatch =>{
 
-return dispatch => {
-
-    dispatch(verifyTokenInit());
-
-         return fetch(BASE_API_URL + "/homething/admin/verify",{
-         method: "GET",
-         headers:{
-             'Authorization' : 'Bearer '+ token 
-         }  
-     }).then(response => {
-         
-            if(response.status === 200 || response.status === 401){
-                return response;
-            } else {
-                let error = new Error(response.statusText);
-                error.response = response;
-                throw error;
-            }
-
-     }).then(response => {
-         return response.json();
-     }).then(json => {
-
-        if(json.err === 0){
-            dispatch(verifyTokenSuccessfully(0));
-        }else if(json.err === 401){
-            dispatch(verifyTokenSuccessfully(401));
+      startInsert();
+      
+      return fetch(BASE_API_URL + "/homething/admin/device/add",{
+        method: "POST",
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization' : 'Bearer '+ _getTokenState()
+        },
+        body: JSON.stringify({
+            sdid : $sdid,
+            dtype : $dtype,
+            sharecode : $dpasswd
+        })
+    }).then(response => {
+        
+        if(response.status === 200){
+            return response;
         }else {
-            dispatch(verifyTokenFailure("something wrong"));
+            let error = new Error(response.statusText);
+            error.response = response;
+            throw error;
+        }
+    }).then(response => {
+        return response.json();
+    }).then(json => {
+        
+        if(json.err === 0){
+            dispatch(insertSucessfully());
+            dispatch(reqdevices(_getTokenState()));  
+            dispatch(validationDeviceCode(""));
+            dispatch(validationID(""));
+            dispatch(selectSmartDevice("0"));
+        }else {
+            dispatch(insertFailure());
         }
 
-     }).catch(error => {
-            dispatch(verifyTokenFailure(error.message));
-     });
-}
+    }).catch(err => {
+        dispatch(insertFailure());
+    });
+
+
+    }
 
 }
+
 
 //-------------- logout-------------------//
 
 export const LOG_OUT = "logout";
-export const LOG_OUT_FROM_APP = "logout_from_app";
 
-export function logout(statuslogout){
+export function logout(){
     return {
-        type:LOG_OUT,
-        statuslogout
+        type:LOG_OUT
     }
 }
 
-export function logoutFromApp(islogout){
+function _getTokenState(){
+    return sessionStorage.getItem(SAVE_TOKEN);
+}
+
+//------------ search---------------//
+export const SEARCH_BOX_CHANGE = "search_box_change";
+export const SEARCH_OPTION_CHANGE ="search_option_change";
+
+export function search_box_change(word){
     return {
-        type: LOG_OUT_FROM_APP,
-        islogout
+        type:SEARCH_BOX_CHANGE,
+        word
     }
 }
 
+export function search_option_change(opt){
+    return {
+        type : SEARCH_OPTION_CHANGE,
+        opt
+    }
+}

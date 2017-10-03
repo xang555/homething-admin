@@ -7,6 +7,7 @@ import ic_switch from '../../Icon/ic_switch.svg';
 import ic_alarm from '../../Icon/ic_alarm.svg';
 import ic_gass_sensor from '../../Icon/ic_gass_sensor.svg';
 import ic_temp_hump from '../../Icon/ic_temp_and_humi.svg';
+import ic_smartplug from '../../Icon/ic_smartplug.svg';
 
 class TodoLists extends React.PureComponent {
 
@@ -33,6 +34,9 @@ for(let i =0 ; i < this.props.devices.length;i++){
             break;
         case 3:
             img = ic_alarm;
+            break
+        case 4 :
+            img = ic_smartplug;
 
     }
 
