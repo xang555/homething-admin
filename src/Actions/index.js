@@ -283,3 +283,137 @@ export function search_option_change(opt){
         opt
     }
 }
+
+//------------------- update smart device type---------------//
+
+export const START_UPDATE_DEVICE = "start_update_smp";
+export const UPDATE_DEVICE_SUCESSFULLY = "update_seccess_smp";
+export const UPDATE_DEVICE_FAILURE = "update_failure_smp";
+
+export function startSmartDeviceUpdate(){
+    return {
+        type : START_UPDATE_DEVICE
+    }
+}
+
+export function updateSmartDeviceSucessfully(){
+    return {
+        type : UPDATE_DEVICE_SUCESSFULLY,
+    }
+}
+
+export function updateSmartDeviceFailure(){
+    return {
+        type : UPDATE_DEVICE_FAILURE,
+    }
+}
+
+export function updateSmartDevice($sdid,$dtype){
+    return dispatch =>{
+
+      dispatch(startSmartDeviceUpdate());
+      
+      return fetch(BASE_API_URL + "/homething/admin/device/update/type",{
+        method: "POST",
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization' : 'Bearer '+ _getTokenState()
+        },
+        body: JSON.stringify({
+            sdid : $sdid,
+            dtype : $dtype
+        })
+    }).then(response => {
+        
+        if(response.status === 200){
+            return response;
+        }else {
+            let error = new Error(response.statusText);
+            error.response = response;
+            throw error;
+        }
+    }).then(response => {
+        return response.json();
+    }).then(json => {
+        
+        if(json.err === 0){
+            dispatch(updateSmartDeviceSucessfully());
+        }else {
+            dispatch(updateSmartDeviceFailure());
+        }
+
+    }).catch(err => {
+        dispatch(updateSmartDeviceFailure());
+    });
+
+
+    }
+
+}
+
+//------------------- change smartdevice password ---------------//
+
+export const START_CHANGE_PASSWORD = "start_change";
+export const CHANGE_PASSWORD_SUCCESS= "change_sucess";
+export const CHANGE_PASSWORD_FAILURE = "change_failure";
+
+export function startChangePassword(){
+    return {
+        type : START_CHANGE_PASSWORD
+    }
+}
+
+export function chnagePasswordSucess(){
+    return {
+        type : CHANGE_PASSWORD_SUCCESS,
+    }
+}
+
+export function changePasswordFailure(){
+    return {
+        type : CHANGE_PASSWORD_FAILURE,
+    }
+}
+
+export function chnagePasswordSmartDevice($sdid,$dpasswd){
+    return dispatch =>{
+
+      dispatch(startChangePassword());
+      
+      return fetch(BASE_API_URL + "/homething/admin/device/update/dpasswd",{
+        method: "POST",
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization' : 'Bearer '+ _getTokenState()
+        },
+        body: JSON.stringify({
+            sdid : $sdid,
+            newdpasswd : $dpasswd
+        })
+    }).then(response => {
+        
+        if(response.status === 200){
+            return response;
+        }else {
+            let error = new Error(response.statusText);
+            error.response = response;
+            throw error;
+        }
+    }).then(response => {
+        return response.json();
+    }).then(json => {
+        
+        if(json.err === 0){
+            dispatch(chnagePasswordSucess());
+        }else {
+            dispatch(changePasswordFailure());
+        }
+
+    }).catch(err => {
+        dispatch(changePasswordFailure());
+    });
+
+
+    }
+
+}
