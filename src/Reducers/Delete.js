@@ -1,4 +1,4 @@
-import {  START_DELETE_SMP,DELETE_SMP_SUCCESS,DELETE_SMP_FAILURE,RESET_DELETE_DEVICE } from '../Actions';
+import {  START_DELETE_SMP,DELETE_SMP_SUCCESS,DELETE_SMP_FAILURE } from '../Actions';
 
 const initState = {
     is_deleting : false,
@@ -27,12 +27,9 @@ export default function DeleteSmp (state = initState,action){
                 is_deleting : false,
                 is_delete_success : false,
                 is_delete_failure : true
-             });
-        
-        case RESET_DELETE_DEVICE :
-            return initState;     
+             });   
         default :
-             return state;
+             return initState;
 
     }
 

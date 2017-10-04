@@ -1,4 +1,4 @@
-import { START_UPDATE_DEVICE,UPDATE_DEVICE_SUCESSFULLY,RESET_UPDATE_DEVICE_STATE,UPDATE_DEVICE_FAILURE } from '../Actions';
+import { START_UPDATE_DEVICE,UPDATE_DEVICE_SUCESSFULLY,UPDATE_DEVICE_FAILURE } from '../Actions';
 
 
 const initState = {
@@ -29,10 +29,8 @@ export default function updateSmp (state = initState,action){
                 is_update_success : false,
                 is_update_failure : true
              });
-        case RESET_UPDATE_DEVICE_STATE :
-             return initState;
         default :
-             return state;
+             return initState;
 
     }
 

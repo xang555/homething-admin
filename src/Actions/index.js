@@ -289,7 +289,6 @@ export function search_option_change(opt){
 export const START_UPDATE_DEVICE = "start_update_smp";
 export const UPDATE_DEVICE_SUCESSFULLY = "update_seccess_smp";
 export const UPDATE_DEVICE_FAILURE = "update_failure_smp";
-export const RESET_UPDATE_DEVICE_STATE ="reset_update";
 
 export function startSmartDeviceUpdate(){
     return {
@@ -309,11 +308,6 @@ export function updateSmartDeviceFailure(){
     }
 }
 
-export function resetupdateSmartDevicestate(){
-    return {
-        type : RESET_UPDATE_DEVICE_STATE,
-    }
-}
 
 export function updateSmartDevice($sdid,$dtype){
     return dispatch =>{
@@ -363,7 +357,6 @@ export function updateSmartDevice($sdid,$dtype){
 export const START_CHANGE_PASSWORD = "start_change";
 export const CHANGE_PASSWORD_SUCCESS= "change_sucess";
 export const CHANGE_PASSWORD_FAILURE = "change_failure";
-export const RESET_CHANGE_PASSWORD = "reset_change_passwd";
 
 export function startChangePassword(){
     return {
@@ -383,11 +376,6 @@ export function changePasswordFailure(){
     }
 }
 
-export function resetchangePassword(){
-    return {
-        type : RESET_CHANGE_PASSWORD,
-    }
-}
 
 export function changePasswordSmartDevice($sdid,$dpasswd){
     return dispatch =>{
@@ -437,7 +425,6 @@ export function changePasswordSmartDevice($sdid,$dpasswd){
 export const START_DELETE_SMP = "start_delete";
 export const DELETE_SMP_SUCCESS= "delete_sucess";
 export const DELETE_SMP_FAILURE = "delete_failure";
-export const RESET_DELETE_DEVICE = "reset_delete";
 
 export function startDeleteSmartDevice(){
     return {
@@ -457,11 +444,6 @@ export function DeleteSmartDeviceFailure(){
     }
 }
 
-export function resetDeleteSmartDevice(){
-    return {
-        type : RESET_DELETE_DEVICE,
-    }
-}
 
 export function DeleteSmartDevice($sdid){
     return dispatch =>{

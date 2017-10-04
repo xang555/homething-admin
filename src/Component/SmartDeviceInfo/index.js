@@ -6,10 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updateSmartDevice,
     changePasswordSmartDevice,
-    DeleteSmartDevice,
-    resetchangePassword,
-    resetDeleteSmartDevice,
-    resetupdateSmartDevicestate } from '../../Actions';
+    DeleteSmartDevice} from '../../Actions';
 import { Redirect } from 'react-router-dom';
 
 import { SAVE_TOKEN } from '../../appconfig';
@@ -99,12 +96,6 @@ _handleDeleteSmartDevice = (e) => {
     if(conf) {
         this.props.DeleteSmartDevice(sdid);
     }
-}
-
-componentWillUnmount(){
-    this.props.resetchangePassword();
-    this.props.resetDeleteSmartDevice();
-    this.props.resetupdateSmartDevicestate();
 }
 
 render(){
@@ -239,9 +230,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({updateSmartDevice,
         changePasswordSmartDevice,
-        DeleteSmartDevice,resetchangePassword,
-        resetDeleteSmartDevice,
-        resetupdateSmartDevicestate},dispatch)
+        DeleteSmartDevice},dispatch)
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(SmartDeviceInfo);
