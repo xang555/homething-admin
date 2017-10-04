@@ -1,4 +1,4 @@
-import { START_UPDATE_DEVICE,UPDATE_DEVICE_SUCESSFULLY,UPDATE_DEVICE_FAILURE } from '../Actions';
+import { START_UPDATE_DEVICE,UPDATE_DEVICE_SUCESSFULLY,RESET_UPDATE_DEVICE_STATE,UPDATE_DEVICE_FAILURE } from '../Actions';
 
 
 const initState = {
@@ -7,30 +7,32 @@ const initState = {
     is_update_failure : false
 }
 
-export default function updateSmp (stae = initState,action){
+export default function updateSmp (state = initState,action){
 
     switch(action.type){
 
         case START_UPDATE_DEVICE :
-            return Object.assign({},stae,{
+            return Object.assign({},state,{
                 is_updating : true
             });
         
         case UPDATE_DEVICE_SUCESSFULLY :
-             return Object.assign({},stae,{
+             return Object.assign({},state,{
                 is_updating : false,
                 is_update_success : true,
                 is_update_failure : false
              });
 
         case UPDATE_DEVICE_FAILURE :
-            return Object.assign({},stae,{
+            return Object.assign({},state,{
                 is_updating : false,
                 is_update_success : false,
                 is_update_failure : true
              });
-        default :
+        case RESET_UPDATE_DEVICE_STATE :
              return initState;
+        default :
+             return state;
 
     }
 

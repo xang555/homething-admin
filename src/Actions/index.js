@@ -289,6 +289,7 @@ export function search_option_change(opt){
 export const START_UPDATE_DEVICE = "start_update_smp";
 export const UPDATE_DEVICE_SUCESSFULLY = "update_seccess_smp";
 export const UPDATE_DEVICE_FAILURE = "update_failure_smp";
+export const RESET_UPDATE_DEVICE_STATE ="reset_update";
 
 export function startSmartDeviceUpdate(){
     return {
@@ -305,6 +306,12 @@ export function updateSmartDeviceSucessfully(){
 export function updateSmartDeviceFailure(){
     return {
         type : UPDATE_DEVICE_FAILURE,
+    }
+}
+
+export function resetupdateSmartDevicestate(){
+    return {
+        type : RESET_UPDATE_DEVICE_STATE,
     }
 }
 
@@ -356,6 +363,7 @@ export function updateSmartDevice($sdid,$dtype){
 export const START_CHANGE_PASSWORD = "start_change";
 export const CHANGE_PASSWORD_SUCCESS= "change_sucess";
 export const CHANGE_PASSWORD_FAILURE = "change_failure";
+export const RESET_CHANGE_PASSWORD = "reset_change_passwd";
 
 export function startChangePassword(){
     return {
@@ -375,7 +383,13 @@ export function changePasswordFailure(){
     }
 }
 
-export function chnagePasswordSmartDevice($sdid,$dpasswd){
+export function resetchangePassword(){
+    return {
+        type : RESET_CHANGE_PASSWORD,
+    }
+}
+
+export function changePasswordSmartDevice($sdid,$dpasswd){
     return dispatch =>{
 
       dispatch(startChangePassword());
@@ -411,6 +425,79 @@ export function chnagePasswordSmartDevice($sdid,$dpasswd){
 
     }).catch(err => {
         dispatch(changePasswordFailure());
+    });
+
+
+    }
+
+}
+
+//----------------- delete smart device ----------------//
+
+export const START_DELETE_SMP = "start_delete";
+export const DELETE_SMP_SUCCESS= "delete_sucess";
+export const DELETE_SMP_FAILURE = "delete_failure";
+export const RESET_DELETE_DEVICE = "reset_delete";
+
+export function startDeleteSmartDevice(){
+    return {
+        type : START_DELETE_SMP
+    }
+}
+
+export function DeleteSmartDeviceSucess(){
+    return {
+        type : DELETE_SMP_SUCCESS,
+    }
+}
+
+export function DeleteSmartDeviceFailure(){
+    return {
+        type : DELETE_SMP_FAILURE,
+    }
+}
+
+export function resetDeleteSmartDevice(){
+    return {
+        type : RESET_DELETE_DEVICE,
+    }
+}
+
+export function DeleteSmartDevice($sdid){
+    return dispatch =>{
+
+      dispatch(startDeleteSmartDevice());
+      
+      return fetch(BASE_API_URL + "/homething/admin/device/delete",{
+        method: "DELETE",
+        headers:{
+            'Content-Type': 'application/json',
+            'Authorization' : 'Bearer '+ _getTokenState()
+        },
+        body: JSON.stringify({
+            sdid : $sdid
+        })
+    }).then(response => {
+        
+        if(response.status === 200){
+            return response;
+        }else {
+            let error = new Error(response.statusText);
+            error.response = response;
+            throw error;
+        }
+    }).then(response => {
+        return response.json();
+    }).then(json => {
+        
+        if(json.err === 0){
+            dispatch(DeleteSmartDeviceSucess());
+        }else {
+            dispatch(DeleteSmartDeviceFailure());
+        }
+
+    }).catch(err => {
+        dispatch(DeleteSmartDeviceFailure());
     });
 
 

@@ -1,4 +1,4 @@
-import { START_CHANGE_PASSWORD,CHANGE_PASSWORD_SUCCESS,CHANGE_PASSWORD_FAILURE } from '../Actions';
+import { START_CHANGE_PASSWORD,CHANGE_PASSWORD_SUCCESS,CHANGE_PASSWORD_FAILURE,RESET_CHANGE_PASSWORD } from '../Actions';
 
 const initState = {
     is_changing : false,
@@ -27,7 +27,8 @@ export default function changePassword(state,action){
             is_changing : false,
             is_changing_failure : true
             });
-
+        case RESET_CHANGE_PASSWORD :
+            return initState;    
         default :
             return initState;
 
