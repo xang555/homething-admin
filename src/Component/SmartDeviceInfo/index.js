@@ -112,6 +112,8 @@ let { match,location } = this.props;
 let params = new URLSearchParams(location.search);
 let dtype = params.get('dtype'); 
 let dname = params.get('dname');
+let scret = params.get("scret");
+let mac = params.get("mac");
 
 let img = null;
 
@@ -147,7 +149,9 @@ return (
     <div>
         <Image src={img} rounded responsive/>
         <div><h3 style={{ color:"#286090" }}> {dname} </h3></div>
-        <div><h5> { "ID : "+ match.params.sdid } </h5></div>    
+        <div><h5> { "ID : "+ match.params.sdid } </h5></div>
+        <div style={{wordWrap: "break-word"}}><h5> { "SECRET : "+ scret } </h5></div>
+        <div><h5> { "MAC : "+ mac } </h5></div>    
     </div>
 
     <div style={{ marginTop:"2%" }}><QRCode value={match.params.sdid} size={173}/></div>

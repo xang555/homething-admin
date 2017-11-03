@@ -40,7 +40,11 @@ for(let i =0 ; i < this.props.devices.length;i++){
 
     }
 
- items.push(<SmartDeviceItem key={this.props.devices[i].sdid} dtype={this.props.devices[i].type} img={img} sdid={this.props.devices[i].sdid} sdname={ this.props.devices[i].nicname } />);
+ items.push(<SmartDeviceItem key={this.props.devices[i].sdid} 
+ dtype={this.props.devices[i].type} img={img} 
+ sdid={this.props.devices[i].sdid} 
+ sdname={ this.props.devices[i].nicname } auth = {this.props.devices[i].auth} mac= {this.props.devices[i].mac} />);
+
 }
 return items;
 }
@@ -76,7 +80,7 @@ render(){
 
 return (
 <Panel>
-    <Link to={"/device/"+this.props.sdid+"?dtype="+this.props.dtype+"&dname="+this.props.sdname}>
+    <Link to={"/device/"+this.props.sdid+"?dtype="+this.props.dtype+"&dname="+this.props.sdname+"&scret="+this.props.auth+"&mac="+this.props.mac}>
       <div><h4 className="title-top">{this.props.sdname}</h4></div>  
      <img src={this.props.img} className="img-card"/>
      <div><h4>ID: {this.props.sdid}</h4></div>
