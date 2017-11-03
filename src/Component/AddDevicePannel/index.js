@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { validationID, validationDeviceCode,
          selectSmartDevice,getSmartDevices,
-         insertSmartDevice } from '../../Actions';
+         insertSmartDevice,set_mac_address_smartdevice,set_secret_smartdevice } from '../../Actions';
 import { Panel,
     Form, FormControl,
     FormGroup, Col,
@@ -36,10 +36,25 @@ getValidationStateDeviceCodeTextbox = () => {
     else if (length > 0) return 'error';
 }
 
+getvalidationStateSecret = () => {
+    const dsecretCount = this.props.validate.scret_id.length;
+    if (dsecretCount >= 20) return 'success';
+    else if (dsecretCount > 0) return 'error';
+}
+
+getvalidationStateMacdress = () => {
+    const dmac_addressCount = this.props.validate.mac_address.length;
+    if (dmac_addressCount === 17) return 'success';
+    else if (dmac_addressCount > 0) return 'error';
+}
+
 isDisable = () =>{
 const inputIdlength = this.props.validate.IdInput.length;
  const inputDeviceCodelength = this.props.validate.DeviceCodeInput.length;
-if(inputIdlength === 13 && inputDeviceCodelength === 8){
+ const dsecretCount = this.props.validate.scret_id.length;
+ const dmac_addressCount = this.props.validate.mac_address.length;
+
+if(inputIdlength === 13 && inputDeviceCodelength === 8 && dsecretCount >= 20 && dmac_addressCount === 17){
     return false;
 }
 return true;
@@ -53,8 +68,10 @@ handleSubmit = (event) => {
 let sdid = this.props.validate.IdInput;
 let dpasswd = this.props.validate.DeviceCodeInput;
 let dtype = this.props.validate.dtype;
+let dsecret = this.props.validate.scret_id;
+let dmac_address = this.props.validate.mac_address;
 
-this.props.insertSmartDevice(sdid,dpasswd,dtype); //add smart device
+this.props.insertSmartDevice(sdid,dpasswd,dtype,dsecret,dmac_address); //add smart device
 
 }
 
@@ -92,6 +109,26 @@ this.props.insertSmartDevice(sdid,dpasswd,dtype); //add smart device
                             <FormControl type="text" placeholder="Device Code" value = {this.props.validate.DeviceCodeInput} onChange={(e) => this.props.validationDeviceCode(e.target.value)} />
                         </Col>
                     </FormGroup>
+
+                    <FormGroup controlId="formHorizontalDeviceCode" bsSize="large" validationState={this.getvalidationStateSecret()}>
+                        <Col componentClass={ControlLabel} sm={3}>
+                            Device Secret
+                        </Col>
+                        <Col sm={7}>
+                            <FormControl type="text" placeholder="Device Secret" value = {this.props.validate.scret_id} onChange={(e) => this.props.set_secret_smartdevice(e.target.value)} />
+                        </Col>
+                    </FormGroup>
+
+
+                    <FormGroup controlId="formHorizontalDeviceCode" bsSize="large" validationState={this.getvalidationStateMacdress()}>
+                        <Col componentClass={ControlLabel} sm={3}>
+                           Mac Address
+                        </Col>
+                        <Col sm={7}>
+                            <FormControl type="text" placeholder="Mac Address" value = {this.props.validate.mac_address} onChange={(e) => this.props.set_mac_address_smartdevice(e.target.value)} />
+                        </Col>
+                    </FormGroup>
+
 
                     <FormGroup bsSize="large">
                         <Col componentClass={ControlLabel} sm={3}>
@@ -142,6 +179,8 @@ return bindActionCreators({
     validationDeviceCode,
     selectSmartDevice,
     getSmartDevices,
+    set_mac_address_smartdevice,
+    set_secret_smartdevice,
     insertSmartDevice},dispatch);
 }
 

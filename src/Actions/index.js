@@ -5,6 +5,8 @@ export const VALIDATION_ID_INPUT = "valid_id";
 export const VALIDATION_DEVICECODE_INPUT ="valid_device_code";
 export const GET_SMART_DEVICE_FILL = "get_sm_device";
 export const SMART_DEVICE_TYPE = "dtype";
+export const SMART_DEVICE_SECRET_ID = "secret_id";
+export const SMART_DEVICE_MAC = "mac_address";
 
 export function validationID(values){
     return {
@@ -30,6 +32,20 @@ export function selectSmartDevice(val){
     return {
         type : SMART_DEVICE_TYPE,
         val
+    }
+}
+
+export function set_secret_smartdevice(scret){
+    return {
+        type: SMART_DEVICE_SECRET_ID,
+        scret
+    }
+}
+
+export function set_mac_address_smartdevice(mac){
+    return {
+        type: SMART_DEVICE_MAC,
+        mac
     }
 }
 
@@ -203,7 +219,7 @@ export function insertFailure(){
     }
 }
 
-export function insertSmartDevice($sdid,$dpasswd,$dtype){
+export function insertSmartDevice($sdid,$dpasswd,$dtype,$secret,$mac){
     return dispatch =>{
 
       startInsert();
@@ -217,7 +233,9 @@ export function insertSmartDevice($sdid,$dpasswd,$dtype){
         body: JSON.stringify({
             sdid : $sdid,
             dtype : $dtype,
-            dpasswd : $dpasswd
+            dpasswd : $dpasswd,
+            auth : $secret,
+            mac : $mac
         })
     }).then(response => {
         
@@ -238,6 +256,8 @@ export function insertSmartDevice($sdid,$dpasswd,$dtype){
             dispatch(validationDeviceCode(""));
             dispatch(validationID(""));
             dispatch(selectSmartDevice("0"));
+            dispatch(set_secret_smartdevice(""));
+            dispatch(set_mac_address_smartdevice(""));
         }else {
             dispatch(insertFailure());
         }
