@@ -4,5 +4,6 @@ node_js:
   - "7"
 install:
   - npm install
+  - npm install -g create-react-app
 script:
   - npm start
